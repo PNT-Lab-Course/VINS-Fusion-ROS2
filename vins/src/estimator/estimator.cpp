@@ -1166,12 +1166,21 @@ void Estimator::optimization()
 
     ceres::Solver::Options options;
 
+    // CUDA support in Ceres may not be available - use CPU solver
+    // If USE_GPU_CERES is enabled but CUDA is not available, fall back to CPU
     if (USE_GPU_CERES)
+    {
         // std::cout << "1" << endl;
-        options.dense_linear_algebra_library_type = ceres::CUDA;
+        // Note: ceres::CUDA is not available in this Ceres build
+        // Fall back to CPU solver
+        options.linear_solver_type = ceres::DENSE_SCHUR;
+        ROS_WARN("USE_GPU_CERES is enabled but Ceres was not built with CUDA support. Using CPU solver.");
+    }
     else
+    {
         // std::cout << "2" << endl;
         options.linear_solver_type = ceres::DENSE_SCHUR;
+    }
 
     //options.num_threads = 2;
     options.trust_region_strategy_type = ceres::DOGLEG;

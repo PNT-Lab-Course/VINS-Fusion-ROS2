@@ -164,7 +164,7 @@ map<int, vector<pair<int, Eigen::Matrix<double, 7, 1>>>> FeatureTracker::trackIm
             }
             // printf("temporal optical flow costs: %fms\n", t_o.toc());
         }
-#ifdef GPU_MODE
+#if GPU_MODE
         else
         {
             TicToc t_og;
@@ -295,7 +295,7 @@ map<int, vector<pair<int, Eigen::Matrix<double, 7, 1>>>> FeatureTracker::trackIm
             // sum_n += n_pts.size();
             // printf("total point from non-gpu: %d\n",sum_n);
         }
-#ifdef GPU_MODE
+#if GPU_MODE
         // ROS_DEBUG("detect feature costs: %fms", t_t.toc());
         // printf("good feature to track costs: %fms\n", t_t.toc());
         else
@@ -372,7 +372,7 @@ map<int, vector<pair<int, Eigen::Matrix<double, 7, 1>>>> FeatureTracker::trackIm
                 }
                 // printf("left right optical flow cost %fms\n",t_check.toc());
             }
-#ifdef GPU_MODE
+#if GPU_MODE
             else
             {
                 TicToc t_og1;
